@@ -41,26 +41,28 @@
     <script>
         let lati = document.getElementById("lati");
         let longi = document.getElementById("longi");
-
         let btn = document.getElementById("btn");
         let ma = document.getElementById('maps')
         let latitude, longitude;
-        console.log(navigator.geolocation.getCurrentPosition((position) => {
-            latitude = position.coords.latitude;
-            longitude = position.coords.longitude
-            console.log(position.coords);
-            console.log(latitude, longitude);
-        }, (error) => {
 
-            console.log(error);
-        }));
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                latitude = position.coords.latitude;
+                longitude = position.coords.longitude
+                console.log(position.coords);
+                console.log(latitude, longitude);
+            }, (error) => {
 
+                console.log(error);
+            });
+        } else {
+            console.log("there no gps option in your device");
+        }
 
         btn.addEventListener("click", () => {
             ma.innerHTML = `<iframe width="700" height="300" src="https://maps.google.com/maps?q=${ latitude },${ longitude}&amp;z=15&amp;output=embed"></iframe>`;
             lati.innerHTML = `lattitude${ latitude}`;
             longi.innerHTML = `longitude:${longitude}`
-
         })
     </script>
 </body>
