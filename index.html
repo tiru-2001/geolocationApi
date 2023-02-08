@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation Api</title>
+
+
+    <style>
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .container #btn {
+            padding: 5px 10px;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            background-color: dodgerblue;
+            font-size: 1.2rem;
+            color: white;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align:center;">Geolocation Api</h1>
+
+    <div class="container" style="text-align:center ;">
+        <div style="text-align: center;"><span id="lati"></span> <span id="longi"></span></div>
+        <div id="maps"></div>
+        <button id="btn">getMap</button>
+    </div>
+
+    <script>
+        let lati = document.getElementById("lati");
+        let longi = document.getElementById("longi");
+
+        let btn = document.getElementById("btn");
+        let ma = document.getElementById('maps')
+        let latitude, longitude;
+        console.log(navigator.geolocation.getCurrentPosition((position) => {
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude
+            console.log(position.coords);
+            console.log(latitude, longitude);
+        }, (error) => {
+
+            console.log(error);
+        }));
+
+
+        btn.addEventListener("click", () => {
+            ma.innerHTML = `<iframe width="700" height="300" src="https://maps.google.com/maps?q=${ latitude },${ longitude}&amp;z=15&amp;output=embed"></iframe>`;
+            lati.innerHTML = `lattitude${ latitude}`;
+            longi.innerHTML = `longitude:${longitude}`
+
+        })
+    </script>
+</body>
+
+</html>
